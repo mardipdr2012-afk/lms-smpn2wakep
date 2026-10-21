@@ -34,3 +34,23 @@ label{display:block;font-weight:600;font-size:.875rem;margin:1rem 0 .25rem}
 #toast{position:fixed;left:50%;bottom:5rem;transform:translateX(-50%);background:var(--tx);color:#fff;padding:.75rem 1.25rem;border-radius:10px;display:none;z-index:9}
 .sk{height:80px;border-radius:16px;background:linear-gradient(90deg,var(--ps),#fff,var(--ps));background-size:200%;animation:s 1.2s infinite}@keyframes s{to{background-position:-200%}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ---- Logo ---- */
+.brand{flex-direction:row;align-items:center;gap:.75rem}.brand span{display:flex;flex-direction:column}
+.brand img{width:44px;height:44px;border-radius:10px;background:#fff;object-fit:contain;padding:2px}
+.lg{display:block;margin:0 auto 1rem;width:72px;height:72px;object-fit:contain}
+/* ---- Dashboard Kepala Sekolah ---- */
+select{padding:.75rem;border:1.5px solid var(--bd);border-radius:10px;font:inherit;background:#fff;color:var(--tx);min-height:44px}
+.eyebrow{margin:0;color:var(--p);font-size:.75rem;font-weight:600;letter-spacing:.08em}
+.kp-head{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;flex-wrap:wrap}.kp-act{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
+.kp-two{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.plot{position:relative;height:170px;margin-top:2rem;display:flex;align-items:flex-end;gap:1rem;padding:0 .5rem;border-bottom:1px solid var(--bd)}
+.plab{display:flex;gap:1rem;padding:.5rem;text-align:center}.plab span{flex:1;font-weight:600;font-size:.875rem}
+.vbar{flex:1;position:relative;background:var(--ps);border-radius:10px 10px 0 0;min-height:2px;transition:height .4s}.vbar.hi{background:var(--p)}.vbar.lo{background:var(--warn)}
+.vbar em{position:absolute;top:-1.5rem;left:0;right:0;text-align:center;font-style:normal;font-weight:600;font-size:.875rem}
+.kkm{position:absolute;left:0;right:0;border-top:2px dashed var(--bad)}.kkm s{position:absolute;right:0;top:-1.3rem;font-size:.75rem;color:#9E1B3B;text-decoration:none;background:rgba(248,111,143,.15);padding:0 6px;border-radius:9999px}
+.hb{display:grid;grid-template-columns:1fr auto;gap:.25rem;margin-bottom:.75rem;font-size:.875rem}.hb .bar{grid-column:1/-1}
+.trend{width:100%;height:auto}.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.875rem}th{text-align:left;font-size:.75rem;color:var(--mu);letter-spacing:.04em;text-transform:uppercase}
+th,td{padding:.75rem .5rem;border-bottom:1px solid var(--bd);vertical-align:top}td .bar{min-width:90px;margin-bottom:.25rem}
+@media print{#side,#bnav,#top,.kp-act,#toast{display:none!important}body:not(.out) main{margin:0;padding:0}.card{break-inside:avoid;box-shadow:none}}

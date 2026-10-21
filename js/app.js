@@ -14,7 +14,7 @@ const view = h => { $('app-container').innerHTML = h; };
 
 function renderLogin(msg) {
   document.body.classList.add('out');
-  view(`<form class="card login" onsubmit="doLoginUI(event)">
+  view(`<form class="card login" onsubmit="doLoginUI(event)"><img class="lg" src="${LOGO_URL}" alt="Logo SMP Negeri 2 Walea Kepulauan" width="72" height="72">
     <h1>LMS SMPN 2 Walea Kepulauan</h1><p class="mu">Masuk dengan NIS/NIP dan PIN 6 digit.</p>
     <label for="nis">NIS / NIP</label><input id="nis" inputmode="numeric" autocomplete="username" required>
     <label for="pin">PIN</label><input id="pin" type="password" inputmode="numeric" maxlength="6" pattern="\\d{6}" autocomplete="current-password" required>
@@ -27,6 +27,7 @@ const tRow = t => { const [c, l] = bdg(t); return `<div class="row"><div><b>${es
   <div><span class="badge ${c}">${l}</span> ${t.status === 'belum' ? `<button class="btn" onclick="kerjakan('${esc(t.id)}')">Kerjakan</button>` : t.nilai !== null ? `<b>${esc(t.nilai)}</b>/${esc(t.nilaiMaks)}` : ''}</div></div>`; };
 
 function rDash(d) {
+  if (d.s.peran === 'kepsek' && d.kepsek) return rKepsek(d);
   const sis = d.s.peran === 'siswa', belum = d.tugas.filter(t => t.status === 'belum').length;
   view(`<h1>Halo, ${esc(d.s.nama)}</h1><p class="mu">${sis ? 'Selamat belajar mandiri hari ini.' : 'Ringkasan pembelajaran Anda.'}</p>
   <div class="grid">${sis ? stat(belum, 'Tugas belum dikerjakan') : stat(d.perluNilai, 'Jawaban perlu dinilai')}${stat(d.rata ?? '–', sis ? 'Rata-rata nilai' : 'Rata-rata nilai tugas')}${stat(d.mapel.length, 'Mata pelajaran')}</div>
