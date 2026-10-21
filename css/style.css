@@ -1,0 +1,36 @@
+:root{--p:#6D3FE0;--pd:#3B1F8C;--ps:#EDE7FD;--ok:#5CC98A;--bad:#F86F8F;--warn:#FFB020;--bg:#FAF8FF;--sf:#fff;--tx:#1F1A33;--mu:#6B6785;--bd:#E6E2F3;
+--sh1:0 4px 12px -2px rgba(109,63,224,.04);--sh2:0 8px 24px -4px rgba(109,63,224,.08)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:400 16px/1.5 'Plus Jakarta Sans',system-ui,sans-serif}
+h1,h2,h3{font-family:'Playfair Display',Georgia,serif;margin:0 0 .5rem;color:var(--pd)}
+h1{font-size:1.75rem;line-height:2.25rem}h2{font-size:1.25rem}
+small,.mu{color:var(--mu)}
+#side{position:fixed;inset:0 auto 0 0;width:260px;background:var(--p);color:#fff;padding:1.5rem 1rem;display:none;flex-direction:column;gap:1rem}
+.brand{display:flex;flex-direction:column;padding:0 .5rem 1rem}.brand small{color:#E4D9FF;font-size:.75rem;letter-spacing:.05em}
+#nav{flex:1;display:flex;flex-direction:column;gap:.25rem}
+#nav a,#bnav a{display:flex;align-items:center;gap:.75rem;min-height:44px;padding:.5rem .75rem;border-radius:10px;color:#fff;text-decoration:none;cursor:pointer;font-weight:600;font-size:.875rem}
+#nav a.on{background:rgba(255,255,255,.18)}
+svg.i{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+#top{display:none;padding:1rem;background:var(--sf);border-bottom:1px solid var(--bd);font-weight:600}
+main{padding:1rem;padding-bottom:6rem;max-width:1280px;margin:auto}
+#bnav{position:fixed;inset:auto 0 0 0;display:none;background:var(--sf);border-top:1px solid var(--bd);justify-content:space-around;padding:.25rem}
+#bnav a{flex-direction:column;gap:0;color:var(--mu);font-size:.75rem;padding:.25rem .5rem}#bnav a.on{color:var(--p)}
+body:not(.out) #top,body:not(.out) #bnav{display:flex}
+@media(min-width:768px){body:not(.out) #side{display:flex}body:not(.out) #bnav{display:none}body:not(.out) #top,body:not(.out) main{margin-left:260px}main{padding:2rem 3rem}}
+.card{background:var(--sf);border:1px solid var(--bd);border-radius:16px;padding:1rem;box-shadow:var(--sh1);transition:box-shadow .2s}
+.card:hover{box-shadow:var(--sh2)}
+.grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin:1rem 0 1.5rem}
+.stat b{display:block;font:700 2rem 'Playfair Display',serif;color:var(--pd)}
+.btn{min-height:44px;padding:.75rem 1.25rem;border:0;border-radius:10px;background:var(--p);color:#fff;font:600 .875rem inherit;font-family:inherit;cursor:pointer;transition:transform .15s}
+.btn:hover{transform:translateY(-1px)}.btn:disabled{opacity:.6}.btn.sec{background:var(--ps);color:var(--pd)}
+.badge{display:inline-block;height:28px;line-height:28px;padding:0 12px;border-radius:9999px;font-size:.75rem;font-weight:600}
+.b-ok{background:rgba(92,201,138,.15);color:#1B6E40}.b-wr{background:rgba(255,176,32,.15);color:#8A5700}.b-bd{background:rgba(248,111,143,.15);color:#9E1B3B}.b-pr{background:var(--ps);color:var(--pd)}
+input,textarea{width:100%;padding:.75rem;border:1.5px solid var(--bd);border-radius:10px;font:inherit;background:#fff;color:var(--tx)}
+input:focus,textarea:focus{outline:0;border-color:var(--p);box-shadow:0 0 0 3px rgba(109,63,224,.15)}
+label{display:block;font-weight:600;font-size:.875rem;margin:1rem 0 .25rem}
+.bar{height:8px;border-radius:9999px;background:var(--ps);overflow:hidden}.bar i{display:block;height:100%;background:var(--p)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:.75rem;flex-wrap:wrap;padding:.75rem 0;border-bottom:1px solid var(--bd)}.row:last-child{border:0}
+.login{max-width:400px;margin:3rem auto}.err{background:rgba(248,111,143,.15);color:#9E1B3B;border-radius:10px;padding:.75rem;margin-top:1rem;font-size:.875rem}
+#toast{position:fixed;left:50%;bottom:5rem;transform:translateX(-50%);background:var(--tx);color:#fff;padding:.75rem 1.25rem;border-radius:10px;display:none;z-index:9}
+.sk{height:80px;border-radius:16px;background:linear-gradient(90deg,var(--ps),#fff,var(--ps));background-size:200%;animation:s 1.2s infinite}@keyframes s{to{background-position:-200%}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
