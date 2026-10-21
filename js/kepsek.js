@@ -33,8 +33,8 @@ function tren(t) {
   if (!t.length) return '<p class="mu">Belum ada nilai untuk ditampilkan.</p>';
   const W = 600, H = 190, X = i => t.length < 2 ? W / 2 : 40 + i * (W - 80) / (t.length - 1), Y = v => 160 - (Math.min(100, Math.max(50, v)) - 50) / 50 * 130;
   return `<svg viewBox="0 0 ${W} ${H}" class="trend" role="img" aria-label="Grafik tren nilai rata-rata bulanan"><line x1="0" x2="${W}" y1="${Y(KKM)}" y2="${Y(KKM)}" stroke="#F86F8F" stroke-dasharray="4 4"/>
-  <text x="4" y="${Y(KKM) - 4}" font-size="11" fill="#9E1B3B">KKM ${KKM}</text><polyline points="${t.map((p, i) => X(i) + ',' + Y(p.rata)).join(' ')}" fill="none" stroke="#6D3FE0" stroke-width="3"/>
-  ${t.map((p, i) => `<circle cx="${X(i)}" cy="${Y(p.rata)}" r="5" fill="#fff" stroke="#6D3FE0" stroke-width="3"/><text x="${X(i)}" y="${Y(p.rata) - 12}" text-anchor="middle" font-size="12" font-weight="600" fill="#3B1F8C">${fmt(p.rata)}</text><text x="${X(i)}" y="${H - 6}" text-anchor="middle" font-size="12" fill="#6B6785">${bln(p.b)}</text>`).join('')}</svg>`;
+  <text x="4" y="${Y(KKM) - 4}" font-size="11" fill="#9E1B3B">KKM ${KKM}</text><polyline points="${t.map((p, i) => X(i) + ',' + Y(p.rata)).join(' ')}" fill="none" stroke="#15803D" stroke-width="3"/>
+  ${t.map((p, i) => `<circle cx="${X(i)}" cy="${Y(p.rata)}" r="5" fill="#fff" stroke="#15803D" stroke-width="3"/><text x="${X(i)}" y="${Y(p.rata) - 12}" text-anchor="middle" font-size="12" font-weight="600" fill="#14532D">${fmt(p.rata)}</text><text x="${X(i)}" y="${H - 6}" text-anchor="middle" font-size="12" fill="#5B6761">${bln(p.b)}</text>`).join('')}</svg>`;
 }
 function kpList() { const q = KP.q.toLowerCase(); return kpSel(App.data.kepsek).filter(x => (x.kelas + ' ' + x.wali).toLowerCase().includes(q)); }
 const pb = v => v == null ? '<small class="mu">–</small>' : `<div class="bar"><i style="width:${v}%"></i></div><small>${v}%</small>`;

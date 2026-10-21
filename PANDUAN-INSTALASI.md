@@ -42,3 +42,10 @@ git push
 | Halaman tanpa warna | Folder `css/` `js/` tidak ikut → jangan pakai "Upload files" di web GitHub |
 | "Tidak ada koneksi ke server" | `GAS_URL` salah/belum diisi, atau deployment bukan **Anyone** |
 | Perubahan tidak tampil | Ctrl+Shift+R |
+
+## E. Akun Admin & peran
+- Instalasi **baru**: `setupAppEnvironment` otomatis membuat admin (NIP `999999`, PIN `123456`).
+- Database **sudah ada**: jalankan fungsi `tambahAdmin` **satu kali** di editor Apps Script.
+- Login admin → menu **Pengguna** (tambah akun, reset PIN, aktif/nonaktif) dan **Kelola** (kelas, wali kelas, mapel & guru pengampu).
+- Guru hanya melihat mapel yang ditugaskan admin; tambah materi, tugas, dan kuis dari menu **Mapel → pilih mapel**.
+- Segera ganti PIN semua akun contoh lewat tombol **Ubah PIN** (atau Reset PIN oleh admin).

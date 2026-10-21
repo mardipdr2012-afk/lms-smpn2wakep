@@ -4,9 +4,10 @@ const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&l
 const $ = id => document.getElementById(id);
 const IC = { dashboard:'M3 11l9-8 9 8v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z', mapel:'M4 4h6a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H4zM20 4h-6a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h7z',
   tugas:'M9 11l3 3 8-8M20 12v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h9', nilai:'M4 20V10M10 20V4M16 20v-7M22 20H2' };
+Object.assign(IC, { kuis:'M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20zM9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3M12 17h.01', pengguna:'M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8', kelola:'M3 6h18M3 12h18M3 18h18' });
 const ic = n => `<svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="${IC[n]}"/></svg>`;
-const MENU = { siswa:['dashboard','mapel','tugas','nilai'], guru:['dashboard','mapel','tugas'], wali_kelas:['dashboard','mapel','tugas'], kepsek:['dashboard','mapel','tugas'] };
-const LBL = { dashboard:'Dashboard', mapel:'Mata Pelajaran', tugas:'Tugas', nilai:'Nilai Saya' };
+const MENU = { siswa:['dashboard','mapel','tugas','kuis','nilai'], guru:['dashboard','mapel','tugas','kuis'], wali_kelas:['dashboard','mapel','tugas','kuis'], kepsek:['dashboard','mapel','tugas','kuis'], admin:['dashboard','mapel','pengguna','kelola'] };
+const LBL = { dashboard:'Dashboard', mapel:'Mapel', tugas:'Tugas', kuis:'Kuis', nilai:'Nilai', pengguna:'Pengguna', kelola:'Kelola' };
 
 function toast(m) { const t = $('toast'); t.textContent = m; t.style.display = 'block'; setTimeout(() => t.style.display = 'none', 3500); }
 const wita = i => new Date(i).toLocaleString('id-ID', { dateStyle:'medium', timeStyle:'short', timeZone:'Asia/Makassar' }) + ' WITA';
@@ -28,16 +29,12 @@ const tRow = t => { const [c, l] = bdg(t); return `<div class="row"><div><b>${es
 
 function rDash(d) {
   if (d.s.peran === 'kepsek' && d.kepsek) return rKepsek(d);
+  if (d.s.peran === 'admin') return rAdminHome(d);
   const sis = d.s.peran === 'siswa', belum = d.tugas.filter(t => t.status === 'belum').length;
   view(`<h1>Halo, ${esc(d.s.nama)}</h1><p class="mu">${sis ? 'Selamat belajar mandiri hari ini.' : 'Ringkasan pembelajaran Anda.'}</p>
   <div class="grid">${sis ? stat(belum, 'Tugas belum dikerjakan') : stat(d.perluNilai, 'Jawaban perlu dinilai')}${stat(d.rata ?? '–', sis ? 'Rata-rata nilai' : 'Rata-rata nilai tugas')}${stat(d.mapel.length, 'Mata pelajaran')}</div>
   <div class="card"><h2>Tugas Mendatang</h2>${d.tugas.slice(0, 5).map(tRow).join('') || '<p class="mu">Belum ada tugas.</p>'}</div>`);
 }
-function rMapel(d) {
-  view(`<h1>Mata Pelajaran</h1><div class="grid">${d.mapel.map(m => `<div class="card"><span class="badge b-pr">${esc(m.kelas)}</span><h2 style="margin-top:.5rem">${esc(m.nama)}</h2>
-  <div class="bar"><i style="width:${Math.min(100, d.tugas.filter(t => t.mapel === m.nama && t.status !== 'belum').length / Math.max(1, d.tugas.filter(t => t.mapel === m.nama).length) * 100)}%"></i></div></div>`).join('') || '<p class="mu">Belum ada mapel.</p>'}</div>`);
-}
-function rTugas(d) { view(`<h1>Daftar Tugas</h1><div class="card">${d.tugas.map(tRow).join('') || '<p class="mu">Belum ada tugas.</p>'}</div>`); }
 function rNilai(d) {
   const g = d.tugas.filter(t => t.status === 'dinilai');
   view(`<h1>Nilai Saya</h1><div class="grid">${stat(d.rata ?? '–', 'Rata-rata nilai tugas')}</div><div class="card">${g.map(t => `<div class="row"><div><b>${esc(t.judul)}</b><br><small>${esc(t.mapel)}</small></div><b>${esc(t.nilai)}/${esc(t.nilaiMaks)}</b></div>`).join('') || '<p class="mu">Belum ada nilai yang keluar.</p>'}</div>`);
@@ -72,7 +69,8 @@ function expired() { sessionStorage.removeItem(KEY); App.token = App.user = App.
 // Navigasi 0 ms: render dari data lokal, tanpa request.
 function go(p) {
   App.page = p; document.querySelectorAll('[data-p]').forEach(a => a.classList.toggle('on', a.dataset.p === p));
-  ({ dashboard: rDash, mapel: rMapel, tugas: rTugas, nilai: rNilai })[p](App.data);
+  clearInterval(KT);
+  ({ dashboard: rDash, mapel: rMapel, tugas: rTugas, kuis: rKuis, nilai: rNilai, pengguna: rPengguna, kelola: rKelola })[p](App.data);
 }
 // Sinkron latar belakang (jangan menimpa layar saat siswa sedang mengetik jawaban).
 async function refresh() {
